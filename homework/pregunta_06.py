@@ -26,3 +26,20 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
+    with open("files/input/data.csv", "r", encoding="utf-8") as f:
+        filas = [linea.strip().split("\t") for linea in f if linea.strip()]
+    extremos = {}
+    for fila in filas:
+        for par in fila[4].split(","):
+            clave, valor = par.split(":")
+            valor = int(valor)
+            if clave not in extremos:
+                extremos[clave] = [valor, valor]  # [min, max]
+            else:
+                if valor < extremos[clave][0]:
+                    extremos[clave][0] = valor
+                if valor > extremos[clave][1]:
+                    extremos[clave][1] = valor
+    return sorted((clave, v[0], v[1]) for clave, v in extremos.items())
+
+print(pregunta_06())

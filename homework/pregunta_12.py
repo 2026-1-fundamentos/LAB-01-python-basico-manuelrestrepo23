@@ -15,3 +15,13 @@ def pregunta_12():
     {'A': 177, 'B': 187, 'C': 114, 'D': 136, 'E': 324}
 
     """
+    with open("files/input/data.csv", "r", encoding="utf-8") as f:
+        filas = [linea.strip().split("\t") for linea in f if linea.strip()]
+    sumas = {}
+    for fila in filas:
+        letra = fila[0]
+        total = sum(int(par.split(":")[1]) for par in fila[4].split(","))
+        sumas[letra] = sumas.get(letra, 0) + total
+    return sumas
+
+print(pregunta_12())

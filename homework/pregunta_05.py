@@ -15,3 +15,19 @@ def pregunta_05():
     [('A', 9, 2), ('B', 9, 1), ('C', 9, 0), ('D', 8, 3), ('E', 9, 1)]
 
     """
+    with open("files/input/data.csv", "r", encoding="utf-8") as f:
+        filas = [linea.strip().split("\t") for linea in f if linea.strip()]
+    extremos = {}
+    for fila in filas:
+        letra = fila[0]
+        valor = int(fila[1])
+        if letra not in extremos:
+            extremos[letra] = [valor, valor]  # [max, min]
+        else:
+            if valor > extremos[letra][0]:
+                extremos[letra][0] = valor
+            if valor < extremos[letra][1]:
+                extremos[letra][1] = valor
+    return sorted((letra, v[0], v[1]) for letra, v in extremos.items())
+
+print(pregunta_05())

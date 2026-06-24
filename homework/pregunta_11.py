@@ -16,3 +16,13 @@ def pregunta_11():
 
 
     """
+    with open("files/input/data.csv", "r", encoding="utf-8") as f:
+        filas = [linea.strip().split("\t") for linea in f if linea.strip()]
+    sumas = {}
+    for fila in filas:
+        valor = int(fila[1])
+        for letra in fila[3].split(","):
+            sumas[letra] = sumas.get(letra, 0) + valor
+    return dict(sorted(sumas.items()))
+
+print(pregunta_11())

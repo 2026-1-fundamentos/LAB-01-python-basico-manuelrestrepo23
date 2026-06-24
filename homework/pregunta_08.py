@@ -27,3 +27,15 @@ def pregunta_08():
      (9, ['A', 'B', 'C', 'E'])]
 
     """
+    with open("files/input/data.csv", "r", encoding="utf-8") as f:
+        filas = [linea.strip().split("\t") for linea in f if linea.strip()]
+    asociaciones = {}
+    for fila in filas:
+        valor = int(fila[1])
+        letra = fila[0]
+        if valor not in asociaciones:
+            asociaciones[valor] = set()
+        asociaciones[valor].add(letra)
+    return sorted((val, sorted(letras)) for val, letras in asociaciones.items())
+
+print(pregunta_08())

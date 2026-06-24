@@ -24,3 +24,13 @@ def pregunta_09():
      'jjj': 18}}
 
     """
+    with open("files/input/data.csv", "r", encoding="utf-8") as f:
+        filas = [linea.strip().split("\t") for linea in f if linea.strip()]
+    conteo = {}
+    for fila in filas:
+        for par in fila[4].split(","):
+            clave = par.split(":")[0]
+            conteo[clave] = conteo.get(clave, 0) + 1
+    return dict(sorted(conteo.items()))
+
+print(pregunta_09())
